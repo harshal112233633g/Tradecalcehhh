@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TradeCalce by Harshal.s.c</title>
+  <style>
+    body { background-color: #121212; color: white; font-family: Arial, sans-serif; margin: 0; }
+    header { background-color: #1f1f1f; padding: 10px 20px; display: flex; align-items: center; }
+    header img { height: 40px; margin-right: 10px; }
+    h1 { font-size: 24px; }
+    h2 { margin-top: 40px; }
+    main { padding: 20px; }
+    section { background-color: #1e1e1e; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+    input { width: 100%; padding: 8px; margin: 5px 0; border: none; border-radius: 4px; }
+    button { padding: 8px 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    .result { margin-top: 10px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo" />
+    <h1>TradeCalce by Harshal.s.c</h1>
+  </header>
+  <main>
+
+    <section>
+      <h2>1. Average Price Calculator</h2>
+      <input type="number" id="avgPrice1" placeholder="Buy Price 1" />
+      <input type="number" id="qty1" placeholder="Quantity 1" />
+      <input type="number" id="avgPrice2" placeholder="Buy Price 2" />
+      <input type="number" id="qty2" placeholder="Quantity 2" />
+      <button onclick="calcAverage()">Calculate</button>
+      <div class="result" id="avgResult"></div>
+    </section>
+
+    <section>
+      <h2>2. Profit/Loss Calculator</h2>
+      <input type="number" id="buyPrice" placeholder="Buy Price" />
+      <input type="number" id="sellPrice" placeholder="Sell Price" />
+      <input type="number" id="quantity" placeholder="Quantity" />
+      <button onclick="calcPL()">Calculate</button>
+      <div class="result" id="plResult"></div>
+    </section>
+
+    <section>
+      <h2>3. Target Price Calculator</h2>
+      <input type="number" id="entryPrice" placeholder="Entry Price" />
+      <input type="number" id="targetProfit" placeholder="Target Profit" />
+      <input type="number" id="targetQty" placeholder="Quantity" />
+      <button onclick="calcTarget()">Calculate</button>
+      <div class="result" id="targetResult"></div>
+    </section>
+
+    <section>
+      <h2>4. Stop Loss Calculator</h2>
+      <input type="number" id="entrySL" placeholder="Entry Price" />
+      <input type="number" id="maxLoss" placeholder="Maximum Loss" />
+      <input type="number" id="qtySL" placeholder="Quantity" />
+      <button onclick="calcStopLoss()">Calculate</button>
+      <div class="result" id="slResult"></div>
+    </section>
+
+    <section>
+      <h2>5. Brokerage Calculator</h2>
+      <input type="number" id="buyBrk" placeholder="Buy Price" />
+      <input type="number" id="sellBrk" placeholder="Sell Price" />
+      <input type="number" id="qtyBrk" placeholder="Quantity" />
+      <button onclick="calcBrokerage()">Calculate</button>
+      <div class="result" id="brkResult"></div>
+    </section>
+
+    <section>
+      <h2>6. Risk-Reward Ratio Calculator</h2>
+      <input type="number" id="entryRR" placeholder="Entry Price" />
+      <input type="number" id="slRR" placeholder="Stop Loss" />
+      <input type="number" id="targetRR" placeholder="Target Price" />
+      <button onclick="calcRR()">Calculate</button>
+      <div class="result" id="rrResult"></div>
+    </section>
+
+    <section>
+      <h2>7. Position Size Calculator</h2>
+      <input type="number" id="capital" placeholder="Total Capital" />
+      <input type="number" id="riskPercent" placeholder="Risk % per Trade" />
+      <input type="number" id="slPerShare" placeholder="Stop Loss per Share" />
+      <button onclick="calcPosition()">Calculate</button>
+      <div class="result" id="positionResult"></div>
+    </section>
+
+    <section>
+      <h2>8. Compounded Returns Calculator</h2>
+      <input type="number" id="initial" placeholder="Initial Amount" />
+      <input type="number" id="rate" placeholder="Rate of Return (%)" />
+      <input type="number" id="periods" placeholder="Number of Periods" />
+      <button onclick="calcCompound()">Calculate</button>
+      <div class="result" id="compoundResult"></div>
+    </section>
+  </main>
+
+  <script>
+    function calcAverage() {
+      const p1 = +document.getElementById('avgPrice1').value;
+      const q1 = +document.getElementById('qty1').value;
+      const p2 = +document.getElementById('avgPrice2').value;
+      const q2 = +document.getElementById('qty2').value;
+      const result = ((p1 * q1 + p2 * q2) / (q1 + q2)).toFixed(2);
+      document.getElementById('avgResult').innerText = "Average Price: " + result;
+    }
+
+    function calcPL() {
+      const buy = +document.getElementById('buyPrice').value;
+      const sell = +document.getElementById('sellPrice').value;
+      const qty = +document.getElementById('quantity').value;
+      const result = ((sell - buy) * qty).toFixed(2);
+      document.getElementById('plResult').innerText = "Profit/Loss: " + result;
+    }
+
+    function calcTarget() {
+      const entry = +document.getElementById('entryPrice').value;
+      const profit = +document.getElementById('targetProfit').value;
+      const qty = +document.getElementById('targetQty').value;
+      const target = (entry + profit / qty).toFixed(2);
+      document.getElementById('targetResult').innerText = "Target Price: " + target;
+    }
+
+    function calcStopLoss() {
+      const entry = +document.getElementById('entrySL').value;
+      const loss = +document.getElementById('maxLoss').value;
+      const qty = +document.getElementById('qtySL').value;
+      const sl = (entry - loss / qty).toFixed(2);
+      document.getElementById('slResult').innerText = "Stop Loss: " + sl;
+    }
+
+    function calcBrokerage() {
+      const buy = +document.getElementById('buyBrk').value;
+      const sell = +document.getElementById('sellBrk').value;
+      const qty = +document.getElementById('qtyBrk').value;
+      const turnover = (buy + sell) * qty;
+      const brokerage = turnover * 0.0003;
+      document.getElementById('brkResult').innerText = "Estimated Brokerage: " + brokerage.toFixed(2);
+    }
+
+    function calcRR() {
+      const entry = +document.getElementById('entryRR').value;
+      const sl = +document.getElementById('slRR').value;
+      const target = +document.getElementById('targetRR').value;
+      const risk = entry - sl;
+      const reward = target - entry;
+      const ratio = (reward / risk).toFixed(2);
+      document.getElementById('rrResult').innerText = "Risk-Reward Ratio: " + ratio;
+    }
+
+    function calcPosition() {
+      const capital = +document.getElementById('capital').value;
+      const riskPct = +document.getElementById('riskPercent').value / 100;
+      const sl = +document.getElementById('slPerShare').value;
+      const riskAmt = capital * riskPct;
+      const qty = Math.floor(riskAmt / sl);
+      document.getElementById('positionResult').innerText = "Position Size: " + qty + " shares";
+    }
+
+    function calcCompound() {
+      const principal = +document.getElementById('initial').value;
+      const rate = +document.getElementById('rate').value / 100;
+      const n = +document.getElementById('periods').value;
+      const amount = (principal * Math.pow(1 + rate, n)).toFixed(2);
+      document.getElementById('compoundResult').innerText = "Future Value: " + amount;
+    }
+  </script>
+</body>
+</html>
